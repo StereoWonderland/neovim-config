@@ -128,7 +128,7 @@ require("lazy").setup({
         if match ~= '' then
           return match
         end
-        return '/usr/bin/python'
+        return '/usr/bin/python3'
       end
 
       -- Setup for pyright
@@ -195,9 +195,4 @@ vim.keymap.set('n', '<leader>e', ':NvimTreeFindFileToggle<CR>', { noremap = true
 
 -- Set theme
 vim.cmd[[colorscheme tokyonight-storm]]
-
-
--- Command to get Python path
-local python_path = get_python_path(vim.fn.getcwd())
-vim.cmd('command! PythonPath echo "Pyright is using Python interpreter: ' .. python_path .. '"')
 
