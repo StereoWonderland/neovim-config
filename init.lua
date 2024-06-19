@@ -89,6 +89,14 @@ require("lazy").setup({
     end
   },
 
+  -- Floaterm
+  {
+    'voldikss/vim-floaterm',
+    dependencies = {
+      'jremmen/vim-ripgrep',
+    }
+  },
+
   -- Nvim-cmp
   {
     'hrsh7th/nvim-cmp',
