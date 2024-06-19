@@ -219,6 +219,11 @@ require('lualine').setup()
 require("nvim-tree").setup()
 vim.keymap.set('n', '<leader>e', ':NvimTreeFindFileToggle<CR>', { noremap = true })
 
+-- Floaterm
+vim.keymap.set('n', '<leader>ft', ':FloatermNew<CR>')
+vim.keymap.set('n', '<leader>t', ':FloatermToggle<CR>')
+vim.keymap.set('n', '<leader>g', ':FloatermNew --width=0.8 --height=0.9 lazygit<CR>')
+-- Note that you can enter normal mode in the terminal with <C-\><C-n>
 
 -- Load nvim-cmp and its sources
 local cmp = require'cmp'
