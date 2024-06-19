@@ -58,7 +58,11 @@ require("lazy").setup({
   -- OneDark Theme
   {
     'navarasu/onedark.nvim'
-  }
+  },
+
+  -- TreeSitter
+  {"nvim-treesitter/nvim-treesitter", build = ":TSUpdate"},
+
 })
 
 -- Telescope
