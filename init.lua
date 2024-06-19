@@ -89,6 +89,19 @@ require("lazy").setup({
     end
   },
 
+  -- Nvim-cmp
+  {
+    'hrsh7th/nvim-cmp',
+    dependencies = {
+      'hrsh7th/cmp-nvim-lsp',
+      'hrsh7th/cmp-buffer',
+      'hrsh7th/cmp-path',
+      'hrsh7th/cmp-cmdline',
+      'hrsh7th/cmp-vsnip',
+      'hrsh7th/vim-vsnip',
+    }
+  },
+
   -- LspConfig
   {
     'neovim/nvim-lspconfig',
@@ -131,6 +144,10 @@ require("lazy").setup({
         return '/usr/bin/python3'
       end
 
+
+      -- Setup lspconfig for nvim-cmp
+      local capabilities = require('cmp_nvim_lsp').default_capabilities()
+
       -- Setup for pyright
       require('lspconfig').pyright.setup{
         on_attach = function(client, bufnr)
@@ -162,7 +179,9 @@ require("lazy").setup({
           python = {
             pythonPath = get_python_path(vim.fn.getcwd())
           }
-        }
+        },
+	
+	capabilities = capabilities
       }
     end
   },
@@ -193,6 +212,34 @@ require("nvim-tree").setup()
 vim.keymap.set('n', '<leader>e', ':NvimTreeFindFileToggle<CR>', { noremap = true })
 
 
+-- Load nvim-cmp and its sources
+local cmp = require'cmp'
+
+cmp.setup({
+  snippet = {
+    expand = function(args)
+      vim.fn["vsnip#anonymous"](args.body) -- For `vsnip` users.
+    end,
+  },
+  mapping = {
+    ['<C-b>'] = cmp.mapping(cmp.mapping.scroll_docs(-4), { 'i', 'c' }),
+    ['<C-f>'] = cmp.mapping(cmp.mapping.scroll_docs(4), { 'i', 'c' }),
+    ['<C-Space>'] = cmp.mapping(cmp.mapping.complete(), { 'i', 'c' }),
+    ['<C-y>'] = cmp.config.disable, -- Specify `cmp.config.disable` if you want to remove the default `<C-y>` mapping.
+    ['<C-e>'] = cmp.mapping({
+      i = cmp.mapping.abort(),
+      c = cmp.mapping.close(),
+    }),
+    ['<CR>'] = cmp.mapping.confirm({ select = true }),
+    ['<Tab>'] = cmp.mapping(cmp.mapping.select_next_item(), { 'i', 's' }),
+    ['<S-Tab>'] = cmp.mapping(cmp.mapping.select_prev_item(), { 'i', 's' }),
+  },
+  sources = cmp.config.sources({
+    { name = 'nvim_lsp' },
+  }, {
+    { name = 'buffer' },
+  })
+})
+
 -- Set theme
 vim.cmd[[colorscheme tokyonight-storm]]
-
