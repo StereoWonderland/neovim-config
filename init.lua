@@ -61,7 +61,20 @@ require("lazy").setup({
   },
 
   -- TreeSitter
-  {"nvim-treesitter/nvim-treesitter", build = ":TSUpdate"},
+  {
+    "nvim-treesitter/nvim-treesitter",
+    build = ":TSUpdate",
+    config = function () 
+      local configs = require("nvim-treesitter.configs")
+
+      configs.setup({
+          ensure_installed = { "c", "lua", "vim", "vimdoc", "python" },
+          sync_install = false,
+          highlight = { enable = true },
+          indent = { enable = true },  
+        })
+    end
+  },
 
 })
 
@@ -84,3 +97,4 @@ require('onedark').setup {
     style = 'dark'
 }
 require('onedark').load()
+
