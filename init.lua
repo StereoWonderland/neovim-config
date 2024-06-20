@@ -256,3 +256,18 @@ cmp.setup({
 
 -- Set theme
 vim.cmd[[colorscheme tokyonight-storm]]
+
+-- custom dashboard header
+local db = require("dashboard")
+db.setup {
+  config = {
+    header = {
+      "██╗   ██╗██╗███╗   ███╗",
+      "██║   ██║██║████╗ ████║",
+      "██║   ██║██║██╔████╔██║",
+      "╚██╗ ██╔╝██║██║╚██╔╝██║",
+      " ╚████╔╝ ██║██║ ╚═╝ ██║",
+      "  ╚═══╝  ╚═╝╚═╝     ╚═╝",
+    }
+  },
+}
